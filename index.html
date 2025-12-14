@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineMatch</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('index.png') no-repeat center center/cover;
+      background-attachment: fixed;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background: rgba(90, 0, 150, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      backdrop-filter: blur(8px);
+      flex-wrap: wrap;
+    }
+
+    nav .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #e0b3ff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #c77dff;
+    }
+
+    /* Main Content */
+    .container {
+      flex: 1;
+      text-align: center;
+      padding: 8rem 1rem 3rem 1rem;
+    }
+
+    .container h1 {
+      font-size: 3rem;
+      color: #f3e8ff;
+      text-shadow: 0 0 15px rgba(180, 0, 255, 0.6);
+    }
+
+    marquee {
+      font-size: 1.1rem;
+      color: #e6ccff;
+      margin-top: 0.8rem;
+    }
+
+    .home-btn {
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #8e2de2, #9d4edd);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(157, 78, 221, 0.4);
+    }
+
+    .home-btn:hover {
+      background: linear-gradient(135deg, #7b2cbf, #5a189a);
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(157, 78, 221, 0.6);
+    }
+
+    /* Bottom Info Bar */
+    .bottom-bar {
+      background: rgba(90, 0, 150, 0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: space-around;
+      padding: 2rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .bottom-bar div {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .bottom-bar h2 {
+      color: #e0b3ff;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .bottom-bar p {
+      color: #f3e8ff;
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      background: rgba(90, 0, 150, 0.7);
+      text-align: center;
+      padding: 1rem;
+      color: #e6ccff;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .container h1 {
+        font-size: 2rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .bottom-bar {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">🎬 CINE MATCH</div>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Section -->
+  <div class="container">
+    <h1>CINE MATCH</h1>
+    <marquee behavior="alternate" direction="left">
+      Latest movies and web series at your hand — just type it and we have it.
+    </marquee>
+    <button class="home-btn" onclick="location.href='home.html'">Go to Home</button>
+  </div>
+
+  <!-- Compact Bottom Info Bar -->
+  <div class="bottom-bar">
+    <div id="about">
+      <h2>About</h2>
+      <p>CineMatch brings your favorite movies and series together — simple, smart, and cinematic.</p>
+    </div>
+    <div id="contact">
+      <h2>Contact</h2>
+      <p>Email: rishisrivastava069@gmail.com,support@gmail.com | Phone: +91 7906810710 </p>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 CineMatch. All Rights Reserved by G14 Group.
+  </footer>
+</body>
+</html>
+

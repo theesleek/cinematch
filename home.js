@@ -25,16 +25,19 @@
 //
 const TMDB_API_KEY = '0b7ec94633601478da8ad67533d0275c'; // Only needed for local direct API calls
 
-// Detect if running on Vercel or local
+// Detect if running on Vercel, Netlify, or local
 const IS_VERCEL = window.location.hostname.includes('vercel.app') || 
                   window.location.hostname.includes('vercel.com') ||
                   window.location.hostname.includes('.vercel.app');
+const IS_NETLIFY = window.location.hostname.includes('netlify.app') ||
+                   window.location.hostname.includes('netlify.com');
 
 // API Configuration
-// Automatically uses proxy on Vercel, direct API locally
+// Automatically uses proxy on Vercel/Netlify, direct API locally
 // On Vercel: Uses /api/movie-search proxy (requires TMDB_API_KEY in Vercel env vars)
+// On Netlify: Uses direct API (Netlify Functions setup optional - see DEPLOYMENT_FIX.md)
 // Locally: Uses direct TMDB API (requires API key in home.js below)
-const USE_API_PROXY = IS_VERCEL;
+const USE_API_PROXY = IS_VERCEL; // Netlify can use direct API or set up Functions
 const API_PROXY_URL = '/api/movie-search';
 const TMDB_API_BASE = 'https://api.themoviedb.org/3';
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
