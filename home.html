@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINE MATCH - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ============================================
+           Home Page Styles - Dark Purple Theme
+           ============================================ */
+        :root {
+            --home-bg-dark: #1a0d2e;
+            --home-bg-purple: #2d1b4e;
+            --home-accent-purple: #6b46c1;
+            --home-light-purple: #8b5cf6;
+            --home-text-light: #e9d5ff;
+            --home-text-white: #ffffff;
+            --home-overlay: rgba(26, 13, 46, 0.85);
+        }
+        
+        body.home-page {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            /* Fallback gradient */
+            background: linear-gradient(135deg, var(--home-bg-dark) 0%, var(--home-bg-purple) 100%);
+            /* 
+               BACKGROUND IMAGE CONFIGURATION
+               ============================================
+               IMPORTANT: Change the image filename to match your image file
+               
+               To change the background image:
+               1. Place your image file in the same folder as home.html
+               2. Change 'cine-match-bg.jpg' below to your image filename
+               3. Supported formats: .jpg, .jpeg, .png, .webp, .gif
+               4. Examples: 
+                  - url('cine-match-bg.jpg')
+                  - url('my-background.png')
+                  - url('images/bg.jpg')
+               5. Make sure the filename matches EXACTLY (case-sensitive)
+               6. To remove background image, set to: url('')
+               ============================================
+            */
+            background-image: url(index.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--home-text-light);
+            padding: 0;
+            margin: 0;
+            display: block;
+        }
+        
+        /* Fallback gradient overlay if image doesn't load */
+        body.home-page::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--home-bg-dark) 0%, var(--home-bg-purple) 100%);
+            z-index: -2;
+        }
+        
+        /* Background image overlay for better text readability */
+        body.home-page::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Use the same image filename as above */
+            background-image: url('index.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        /* Header */
+        .home-header {
+            background: var(--home-overlay);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--home-text-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .account-button {
+            background: var(--home-accent-purple);
+            color: var(--home-text-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .account-button:hover {
+            background: var(--home-light-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+        
+        /* Account Menu Dropdown */
+        .account-menu {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: var(--home-bg-purple);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 10px 0;
+            min-width: 200px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--home-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--home-text-white);
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background: rgba(139, 92, 246, 0.3);
+            margin: 5px 0;
+        }
+        
+        /* Main Content */
+        .home-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .search-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .search-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--home-text-white);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-subtitle {
+            font-size: 20px;
+            color: var(--home-text-light);
+            margin-bottom: 40px;
+        }
+        
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 18px 60px 18px 20px;
+            font-size: 18px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            background: var(--home-overlay);
+            backdrop-filter: blur(10px);
+            color: var(--home-text-white);
+            outline: none;
+            transition: var(--transition);
+        }
+        
+        .search-input:focus {
+            border-color: var(--home-light-purple);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(233, 213, 255, 0.6);
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 10px;
+            background: var(--home-accent-purple);
+            color: var(--home-text-white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-button:hover {
+            background: var(--home-light-purple);
+            transform: scale(1.05);
+        }
+        
+        /* Results Section */
+        .results-section {
+            margin-top: 50px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .movie-card {
+            background: var(--home-overlay);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+            border-color: var(--home-light-purple);
+        }
+        
+        .movie-poster {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            background: var(--home-bg-purple);
+        }
+        
+        .movie-info {
+            padding: 15px;
+        }
+        
+        .movie-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--home-text-white);
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .movie-year {
+            font-size: 14px;
+            color: var(--home-text-light);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--home-text-light);
+            font-size: 18px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--home-text-light);
+            font-size: 18px;
+        }
+        
+        /* Genres Section */
+        .genres-section {
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .genres-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--home-text-white);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .genres-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .genre-chip {
+            background: var(--home-overlay);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            color: var(--home-text-light);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .genre-chip:hover {
+            background: var(--home-accent-purple);
+            border-color: var(--home-light-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+        
+        .genre-chip.active {
+            background: var(--home-accent-purple);
+            border-color: var(--home-light-purple);
+            color: var(--home-text-white);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--home-text-white);
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        
+        .movie-genre {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--home-text-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-right: 6px;
+            margin-top: 8px;
+        }
+        
+        .section-loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--home-text-light);
+            font-size: 16px;
+        }
+        
+        /* Footer */
+        .home-footer {
+            background: var(--home-overlay);
+            backdrop-filter: blur(10px);
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            margin-top: 80px;
+        }
+        
+        .footer-credits {
+            color: var(--home-text-light);
+            font-size: 14px;
+        }
+        
+        .footer-credits a {
+            color: var(--home-light-purple);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-credits a:hover {
+            color: var(--home-text-white);
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .home-header {
+                padding: 15px 20px;
+            }
+            
+            .logo {
+                font-size: 22px;
+            }
+            
+            .search-title {
+                font-size: 32px;
+            }
+            
+            .search-subtitle {
+                font-size: 16px;
+            }
+            
+            .results-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="home-page">
+    <!-- Header -->
+    <header class="home-header">
+        <a href="home.html" class="logo">
+            <span class="logo-icon">🎬</span>
+            <span>CINE MATCH</span>
+        </a>
+        
+        <div class="header-right">
+            <div class="account-menu">
+                <button class="account-button" id="accountButton" onclick="toggleAccountMenu()">
+                    <span>👤</span>
+                    <span id="accountButtonText">Account</span>
+                </button>
+                <div class="dropdown-menu" id="accountMenu">
+                    <a href="database.html" class="dropdown-item" id="wishlistLink">📋 Wishlist</a>
+                    <a href="database.html#watching" class="dropdown-item" id="watchingLink">▶️ Watching</a>
+                    <a href="database.html#already_watched" class="dropdown-item" id="watchedLink">✅ Already Watched</a>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" onclick="handleLogout()" id="logoutButton" style="display: none;">🚪 Logout</button>
+                    <a href="login.html" class="dropdown-item" id="loginLink" style="display: none;">🔐 Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="home-main">
+        <section class="search-section">
+            <h1 class="search-title">Discover Movies</h1>
+            <p class="search-subtitle">Search for your favorite movies and add them to your collection</p>
+            
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput" 
+                        placeholder="Search for movies..."
+                        autocomplete="off"
+                    >
+                    <button class="search-button" onclick="searchMovies()">Search</button>
+                </div>
+            </div>
+            
+            <!-- Genres Section -->
+            <div class="genres-section">
+                <h2 class="genres-title">Browse by Genre</h2>
+                <div class="genres-container" id="genresContainer">
+                    <div class="section-loading">Loading genres...</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div id="resultsContainer"></div>
+        </section>
+        
+        <!-- Content Sections -->
+        <section class="content-section" id="popularSection">
+            <h2 class="section-title">🔥 Most Popular Movies</h2>
+            <div id="popularContainer" class="section-loading">Loading popular movies...</div>
+        </section>
+        
+        <section class="content-section" id="topRatedSection">
+            <h2 class="section-title">⭐ Top Rated Movies</h2>
+            <div id="topRatedContainer" class="section-loading">Loading top rated movies...</div>
+        </section>
+        
+        <section class="content-section" id="nowPlayingSection">
+            <h2 class="section-title">🎬 Now Playing</h2>
+            <div id="nowPlayingContainer" class="section-loading">Loading now playing movies...</div>
+        </section>
+        
+        <section class="content-section" id="tvShowsSection">
+            <h2 class="section-title">📺 Popular TV Shows</h2>
+            <div id="tvShowsContainer" class="section-loading">Loading TV shows...</div>
+        </section>
+        
+        <section class="content-section" id="onTheAirSection">
+            <h2 class="section-title">📡 On The Air</h2>
+            <div id="onTheAirContainer" class="section-loading">Loading shows on the air...</div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="home-footer">
+        <div class="footer-credits">
+            <!-- 
+                FOOTER CREDITS - You can change the text below
+                Replace "CINE MATCH" and the description with your own credits
+            -->
+            <p>© 2024 CINE MATCH | Movie Discovery Platform</p>
+            <p style="margin-top: 8px; font-size: 12px; opacity: 0.8;">
+                Powered by <a href="https://www.themoviedb.org/" target="_blank">TMDB</a>
+            </p>
+        </div>
+    </footer>
+    
+    <script src="auth.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
+

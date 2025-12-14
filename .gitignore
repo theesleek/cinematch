@@ -1,0 +1,39 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Vercel
+.vercel
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Unnecessary folders and files
+New folder/
+CINEMATCH/
+*.doc
+*.docx
+
+# Documentation files (optional - uncomment if you want to exclude them)
+# API_KEY_QUICK_SETUP.md
+# API_KEY_SETUP.md
+# API_KEY_STATUS.md
+# BACKGROUND_IMAGE_SETUP.md
+# CODE_REVIEW.md
+# LOCAL_SETUP.md
+# VERCEL_DEPLOYMENT.md
+

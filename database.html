@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINE MATCH - My Movies</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .database-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .database-header {
+            background: var(--background-overlay);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .database-header h1 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .user-greeting {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn-logout {
+            background: var(--error-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-logout:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+        
+        .add-movie-section {
+            background: var(--background-overlay);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .add-movie-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+        
+        .form-group-inline {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group-inline label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .form-group-inline input,
+        .form-group-inline select {
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--background-light);
+            color: var(--text-primary);
+            transition: var(--transition);
+            outline: none;
+        }
+        
+        .form-group-inline input:focus,
+        .form-group-inline select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .category-card {
+            background: var(--background-overlay);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .category-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .category-count {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .movies-list {
+            min-height: 100px;
+        }
+        
+        .movie-item {
+            background: var(--background-light);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            transition: var(--transition);
+        }
+        
+        .movie-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        
+        .movie-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .movie-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .btn-move {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-move:hover {
+            background: var(--primary-hover);
+        }
+        
+        .btn-delete {
+            background: var(--error-color);
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            margin-top: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .add-movie-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .database-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .categories-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="database-container">
+        <div class="database-header">
+            <div>
+                <h1><a href="home.html" style="color: var(--text-primary); text-decoration: none;">🎬 CINE MATCH</a></h1>
+                <p class="user-greeting" id="userGreeting">Welcome back!</p>
+            </div>
+            <div class="header-actions">
+                <a href="home.html" style="color: var(--primary-color); text-decoration: none; margin-right: 15px; font-weight: 600;">Home</a>
+                <button class="btn-logout" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+        
+        <div class="add-movie-section">
+            <form id="addMovieForm" class="add-movie-form">
+                <div class="form-group-inline">
+                    <label for="movieTitle">Movie Title</label>
+                    <input 
+                        type="text" 
+                        id="movieTitle" 
+                        name="title" 
+                        required 
+                        placeholder="Enter movie title"
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <div class="form-group-inline">
+                    <label for="movieCategory">Category</label>
+                    <select id="movieCategory" name="category" required>
+                        <option value="wishlist">Wishlist</option>
+                        <option value="watching">Watching</option>
+                        <option value="already_watched">Already Watched</option>
+                    </select>
+                </div>
+                
+                <div class="form-group-inline">
+                    <label for="movieYear">Year (Optional)</label>
+                    <input 
+                        type="number" 
+                        id="movieYear" 
+                        name="year" 
+                        placeholder="e.g. 2024"
+                        min="1900"
+                        max="2100"
+                    >
+                </div>
+                
+                <div class="form-group-inline">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-primary">Add Movie</button>
+                </div>
+            </form>
+            
+            <div id="message" class="message" style="display: none;"></div>
+        </div>
+        
+        <div class="categories-container">
+            <div class="category-card" data-category="wishlist">
+                <div class="category-header">
+                    <span class="category-title">📋 Wishlist</span>
+                    <span class="category-count" id="wishlistCount">0</span>
+                </div>
+                <div class="movies-list" id="wishlistList">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📽️</div>
+                        <p>No movies in this category</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card" data-category="watching">
+                <div class="category-header">
+                    <span class="category-title">▶️ Watching</span>
+                    <span class="category-count" id="watchingCount">0</span>
+                </div>
+                <div class="movies-list" id="watchingList">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎥</div>
+                        <p>No movies in this category</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card" data-category="already_watched">
+                <div class="category-header">
+                    <span class="category-title">✅ Already Watched</span>
+                    <span class="category-count" id="already_watchedCount">0</span>
+                </div>
+                <div class="movies-list" id="already_watchedList">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎬</div>
+                        <p>No movies in this category</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="auth.js"></script>
+    <script src="database.js"></script>
+</body>
+</html>
+
